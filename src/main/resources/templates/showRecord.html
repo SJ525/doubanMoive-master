@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取与查看</title>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="col-lg-12">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link " th:href="@{/}">获取与展示</a>
+                <a class="nav-item nav-link active" th:href="@{/showAll}">查看全部数据</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="card bg-light mb-3">
+            <div class="card-body table-responsive" style="background-color: white;height:560px;">
+                <table class="table text-nowrap" style="border: 1px solid #cccfc9;">
+                    <thead>
+                    <tr class="table-secondary">
+                        <th scope="col">图片</th>
+                        <th scope="col">电影名称</th>
+                        <th scope="col">豆瓣评分</th>
+                        <th scope="col">导演</th>
+                        <th scope="col">年份</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="${page} ne null">
+                    <tr th:each="data:${page.content}" th:object="${page}" >
+                        <td><img th:src="${data.imgURL}" style="width:30px;height:30px;" id="img"></td>
+                        <td th:text="${data.title}"></td>
+                        <td th:text="${data.score}"></td>
+                        <td th:text="${data.director}"></td>
+                        <td th:text="${data.year}"></td>
+                        <td>
+                            <button class="btn btn-success btn-xs" style="padding:0px;" data-toggle="modal" data-target="#show" th:onclick="getMsg([[${data.id}]])">详情</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <nav>
+            <ul th:if="${page} ne null" class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" th:text="|共有| + ${page.getTotalElements()} + |条数据|"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:href="${URL} + |page=0|" th:text="首页"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1"
+                       th:href="${URL} + |page=| + ${page.number < 1 ? 0 : (page.number - 1)}">上一页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"
+                       th:href="${URL} + |page=| + ${page.number >= (page.totalPages - 1) ? page.number : (page.number + 1)}">下一页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:href="${URL} + |page=|+ ${page.totalPages-1}" th:text="尾页"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" th:text="|当前页:| + ${page.number+1} + |/| + ${page.totalPages} + |页|"></a>
+                </li>
+            </ul>
+        </nav>
+        <!--导入模态框模块-->
+        <div class="modal fade" th:replace="~{showMovie}"></div>
+    </div>
+</div>>
+</body>
+</html>

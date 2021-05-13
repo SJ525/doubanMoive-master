@@ -1,0 +1,72 @@
+<!-- 模态框:展示电影详情，通过$.get将表单数据发送到服务器 -->
+<div class="modal fade bs-example-modal-lg" id="show">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">该电影详情</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"><img src="#" id="imgURL" width="250"></div>
+                    <div class="col-lg-8">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">电影名称:</span>
+                            </div>
+                            <input class="form-control" type="text" id="title">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">豆瓣评分:</span>
+                            </div>
+                            <input class="form-control" type="text" id="score">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">导演:</span>
+                            </div>
+                            <input class="form-control" type="text" id="director">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">上映年份:</span>
+                            </div>
+                            <input class="form-control" type="text" id="year">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">剧情简介:</span>
+                            </div>
+                            <textarea class="form-control"  rows="10" style="overflow:auto;" id="story"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    <!--点击"详情"按钮,动态加载数据,添加到模态框中-->
+    function getMsg(id){
+        $.ajax({
+            type:'get',
+            url: "/getMsg",
+            data:{"id":id},
+            success:function(data){
+                $("#imgURL").attr("src",data.imgURL)
+                $("#title").val(data.title);
+                $("#score").val(data.score);
+                $("#director").val(data.director);
+                $("#year").val(data.year);
+                $("#story").val(data.story);
+            }
+        });
+    }
+</script>

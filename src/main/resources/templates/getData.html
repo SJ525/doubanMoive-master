@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取与查看</title>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="col-lg-12">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/}">获取与展示</a>
+                <a class="nav-item nav-link" th:href="@{/showAll}">查看全部数据</a>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-12">
+        <div class="card bg-light mb-3">
+            <div class="card-body" style="background-color: white;height:700px;">
+                <form class="form-inline" method="get" action="/testGet">
+                    <div class="form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                分类：
+                            </span>
+                            <select name="tag">
+                                <option>热门</option>
+                                <option>最新</option>
+                                <option>经典</option>
+                                <option>可播放</option>
+                                <option>冷门佳片</option>
+                                <option>豆瓣高分</option>
+                            </select>
+                            <div class="col-lg-1"></div>
+                            <span class="input-group-text">
+                                获取数量：
+                            </span>
+                            <select name="number">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                                <option>50</option>
+                            </select>
+                            <div class="col-lg-1"></div>
+                            <span class="input-group-text">
+                                起始页：
+                            </span>
+                            <select name="pageStart">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <button type="submit" class="btn btn-primary">爬取数据</button>
+                </form>
+                <div class="row" style="padding:10px;color:#ff0000;">数据如下：</div>
+                <div th:if="${content} ne null" class="input-group mb-3">
+                    <textarea class="form-control"  rows="22" style="overflow:auto;" th:text="${content}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>>
+</body>
+</html>
